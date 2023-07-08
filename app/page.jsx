@@ -4,6 +4,7 @@ import Button from './components/Button/page';
 import Github from './components/icons/Github';
 import  {loginWithGithub, onAuthStateChanged}   from './firebase/client';
 import styles from './page.module.css'
+import Avatar from './components/Avatar/page';
 
 
 
@@ -34,20 +35,21 @@ const handleClick = () => {
           <h2>
             Talk about development <br /> with developers 👨‍💼👩‍💼{' '}
           </h2>
-          <div className={styles.button}>
-            {
-              user === null && 
-            <Button onClick={handleClick} >
-              <Github fill="#fff" width={24} height={24} />
-              Sign up with Github
-                </Button> 
-            }
-            {
-              user && user.avatar && <div>
-                <img className={styles.avatar} src={user.avatar} alt="Avatar" />
-                <strong className={styles.username} >{user.username}</strong>
+          <div>
+            {user === null && (
+              <Button onClick={handleClick}>
+                <div className={styles.button}>
+                  <Github fill="#fff" width={24} height={24} />
+                  <strong>  Sign up with Github</strong>
+                </div>
+              </Button>
+            )}
+            {user && user.avatar && (
+              <div className={styles.imagenAva}>
+                <Avatar src={user.avatar} alt={user.username} />
+                <strong className={styles.username}>{user.username}</strong>
               </div>
-            }
+            )}
           </div>
         </div>
       </div>

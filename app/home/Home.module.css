@@ -1,0 +1,43 @@
+.main {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  height: 90vh;
+  width: 450px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  }
+
+.header{
+  align-items: center;
+  display: flex;
+  border-bottom: 1px solid #ccc;
+  height: 49px;
+  position: fixed;
+  top: 0;
+}
+
+.header h2{
+color: black;
+font-size: 24px;
+font-weight: 800;
+}
+
+.section{
+  padding: 49px;
+}
+
+.article{
+  display: flex;
+  padding: 10px 15px;
+}
+
+.nav{
+  bottom: 0;
+  border-top: 1px solid #ccc;
+  height: 49px;
+  position: fixed;
+  width: 100%;
+}

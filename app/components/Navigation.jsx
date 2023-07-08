@@ -6,11 +6,7 @@ const links = [
     label: 'Home',
     route: '/',
   },
-  {
-    label: 'Timeline',
-    route: '/timeline',
-  },
- 
+  
 ];
 
 export default function Navigation() {

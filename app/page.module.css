@@ -40,12 +40,24 @@
   border-radius: 10px 0 0 10px;
 }
 
-.avatar{
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
-  border-radius: 50%;
-  margin-bottom: 16px;
+.imagenAva{
+  display: flex;
+  justify-content: center;
+  align-items: center;  
+}
+
+.imagenAva>div:first-child{
+    margin-right: 1rem;
+}
+
+.imagenAva>div:last-child{
+    margin-left: 1rem;
+}
+
+.button{
+  display: flex;
+  justify-content: center;
+  align-items: center;  
 }
 
 .username {
