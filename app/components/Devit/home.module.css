@@ -1,0 +1,22 @@
+
+.article {
+  display: flex;
+  padding: 10px 15px;
+  border-bottom: 1px solid #eee;
+  color: #333;
+}
+
+.article div {
+  padding-right: 10px;
+}
+
+.article p {
+  line-height: 1.3125;
+  margin: 0;
+  color: #333;
+}
+
+.article span{
+  font-size: 14px;
+  color: #828282;
+}

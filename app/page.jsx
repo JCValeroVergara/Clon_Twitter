@@ -1,24 +1,28 @@
 'use client'
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import Button from './components/Button/page';
 import Github from './components/icons/Github';
-import  {loginWithGithub, onAuthStateChanged}   from './firebase/client';
+import  {loginWithGithub}   from './firebase/client';
 import styles from './page.module.css'
-import Avatar from './components/Avatar/page';
+import { useRouter } from 'next/navigation';
+import useUser,{USER_STATES} from './hooks/useUser';
 
 
 
 export default function Home() {
-  const [user, setUser] = useState(null)
+  const user = useUser()
+  const router = useRouter()
   
+
+
   useEffect(() => {
-    onAuthStateChanged(setUser);
-  }, []);
+    user && router.replace('/home')
+  }, [user])
   
 
 
 const handleClick = () => {
-  loginWithGithub().then(setUser).catch(err => {
+  loginWithGithub().catch(err => {
     console.log(err)
   })    
 };
@@ -36,7 +40,7 @@ const handleClick = () => {
             Talk about development <br /> with developers 👨‍💼👩‍💼{' '}
           </h2>
           <div>
-            {user === null && (
+            {user === USER_STATES.NOT_LOGGED && (
               <Button onClick={handleClick}>
                 <div className={styles.button}>
                   <Github fill="#fff" width={24} height={24} />
@@ -44,12 +48,7 @@ const handleClick = () => {
                 </div>
               </Button>
             )}
-            {user && user.avatar && (
-              <div className={styles.imagenAva}>
-                <Avatar src={user.avatar} alt={user.username} />
-                <strong className={styles.username}>{user.username}</strong>
-              </div>
-            )}
+            {user && USER_STATES.NOT_KNOWN && <img src='/spinner.gif'>Loading...</img>}
           </div>
         </div>
       </div>

@@ -2,15 +2,18 @@
 import { useEffect, useState } from 'react';
 import styles from './Home.module.css'
 import Devit from '../components/Devit/page';
+import useUser from '../hooks/useUser';
+import { fetchLatestTweets } from '../firebase/client';
 
 export default function HomePage() {
-  const [timeline, setTimeline] = useState([]);
+  const [timeline, setTimeline] = useState([])
+  const user =useUser()
 
   useEffect(() => {
-    fetch('http://localhost:3000/api/statuses/home_timeline')
-      .then(res => res.json())
+    user &&
+    fetchLatestTweets()
       .then(setTimeline)
-  }, []);
+  }, [user]);
 
   return (
     <main className={styles.main}>
@@ -22,10 +25,12 @@ export default function HomePage() {
           return (
             <Devit
               key={devit.id}
-              username={devit.username}
-              avatar={devit.avatar}
-              message={devit.message}
               id={devit.id}
+              avatar={devit.avatar}
+              createdAt={devit.createdAt}
+              username={devit.userName}
+              content={devit.content}
+              userId={devit.id}
             />
           );
         })}
