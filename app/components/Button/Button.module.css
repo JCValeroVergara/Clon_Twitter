@@ -15,11 +15,7 @@
     display: inline-block;
 }
 
-.button [disabled]{
-    pointer-events: none;
-    opacity: 0.2;
-    
-}
+
 
 .button:hover{
     background-color: #3e8e41;
