@@ -24,7 +24,7 @@ export default function HomePage() {
   return (
     <>
       <Head>
-        <title>Inicio / Devter</title>
+        <title>Inicio 🐻 / Devter</title>
       </Head>
       <main className={styles.main}>
         <header className={styles.header}>

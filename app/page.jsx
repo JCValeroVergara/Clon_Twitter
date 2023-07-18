@@ -6,6 +6,7 @@ import  {loginWithGithub}   from './firebase/client';
 import styles from './page.module.css'
 import { useRouter } from 'next/navigation';
 import useUser,{USER_STATES} from './hooks/useUser';
+import Head from 'next/head';
 
 
 
@@ -29,29 +30,36 @@ const handleClick = () => {
 
 
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <div>
-          <img src="/logo.png" alt="Logo" className={styles.imagen} />
-          <h1>
-            Welcome to <a href="https://Nextjs.org">Devter!</a>
-          </h1>
-          <h2>
-            Talk about development <br /> with developers 👨‍💼👩‍💼{' '}
-          </h2>
+    <>
+      <Head>
+        <title>devter 🐻 </title>
+      </Head>
+      <main className={styles.main}>
+        <div className={styles.description}>
           <div>
-            {user === USER_STATES.NOT_LOGGED && (
-              <Button onClick={handleClick}>
-                <div className={styles.button}>
-                  <Github fill="#fff" width={24} height={24} />
-                  <strong>  Sign up with Github</strong>
-                </div>
-              </Button>
-            )}
-            {user && USER_STATES.NOT_KNOWN && <img src='/spinner.gif'>Loading...</img>}
+            <img src="/logo.png" alt="Logo" className={styles.imagen} />
+            <h1>
+              Welcome to <a href="https://Nextjs.org">Devter!</a>
+            </h1>
+            <h2>
+              Talk about development <br /> with developers 👨‍💼👩‍💼{' '}
+            </h2>
+            <div>
+              {user === USER_STATES.NOT_LOGGED && (
+                <Button onClick={handleClick}>
+                  <div className={styles.button}>
+                    <Github fill="#fff" width={24} height={24} />
+                    <strong> Sign up with Github</strong>
+                  </div>
+                </Button>
+              )}
+              {user && USER_STATES.NOT_KNOWN && (
+                <img src="/spinner.gif">Loading...</img>
+              )}
+            </div>
           </div>
         </div>
-      </div>
-    </main>
+      </main>
+    </>
   );
 }

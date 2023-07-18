@@ -28,9 +28,25 @@
   font-size: 14px;
   color: #828282;
 }
+
+.article:hover{
+  background-color: #f5f8fa;
+  cursor: pointer;
+}
+
 .img{
   height: auto;
   width: 100%;
   border-radius: 10px;
   margin-top: 10px;
+}
+
+.time{
+  color: #555;
+  font-size: 12px;
+  text-decoration: none;
+}
+
+.time:hover{
+  text-decoration: underline;
 }

@@ -97,7 +97,7 @@ export default function ComposeTweet() {
   return (
     <>
       <Head>
-        <title>Crea un Tweet: / Devter</title>
+        <title>🐻 Crea un Tweet: / Devter</title>
       </Head>
 
       <div className={styles.main}>

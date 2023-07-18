@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react';
 
 const DATE_UNITS = [
@@ -10,7 +11,7 @@ const DATE_UNITS = [
 ];
 
 const getDateDiffs = (timestamp) => {
-  // console.log(getDateDiffs);
+  
   const now = Date.now();
   const elapsed = (timestamp-now) / 1000;
 
@@ -39,7 +40,11 @@ export default function useTimeAgo(timestamp) {
         const rtf = new Intl.RelativeTimeFormat('es', {
           style: 'short'
         });
-        const {value, unit } = timeago;
-        return rtf.format(value, unit);
+        const { value, unit } = timeago;
+        const formattedTimeAgo = Number.isFinite(value)
+          ? rtf.format(value, unit)
+          : '';
+
+        return formattedTimeAgo;
 
 }

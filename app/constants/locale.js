@@ -1,0 +1,1 @@
+export const DEFAUL_LANGUAGE="es-ES"
