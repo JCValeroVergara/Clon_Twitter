@@ -6,7 +6,7 @@ import Link from 'next/link';
 import styles from './home.module.css';
 import { useRouter } from 'next/navigation';
 
-export default function Devit({ avatar, username,img, content, createdAt, id }) {
+export default function Devit({ avatar, userName,img, content, createdAt, id }) {
   const timeAgo = useTimeAgo(createdAt);
   const createdAtFormated = useDateTimeFormat(createdAt);
   const router = useRouter();
@@ -22,14 +22,14 @@ export default function Devit({ avatar, username,img, content, createdAt, id }) 
     <div className={styles.main}>
       <article onClick={handleArticleClick} className={styles.article} key={id}>
         <div>
-          <Avatar alt={username} src={avatar} />
+          <Avatar alt={userName} src={avatar} />
           
           
         </div>
         <section>
           <header className={styles.envia} >
             <div>
-            <strong>{username}</strong>
+            <strong>{userName}</strong>
             </div>
             <span>. </span>
             <Link href={`/status/[id]`} as={`/status/${id}`}>

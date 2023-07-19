@@ -10,3 +10,17 @@
   flex-direction: column;
   
   }
+
+.section{
+  padding: 49px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.envia{
+  display: flex;
+  flex: 1; 
+  color: black;
+}
