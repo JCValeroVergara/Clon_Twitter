@@ -5,7 +5,7 @@ import Devit from '@/app/components/Devit/page';
 import { useRouter } from 'next/navigation';
 
 export default function DevitPage(props) {
-  // console.log('Component Props:', props);
+
 
   const { id } = props;
   const tweetId = props.params.id;

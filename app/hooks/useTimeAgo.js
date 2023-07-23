@@ -1,9 +1,12 @@
 
 import { useEffect, useState } from 'react';
 
+const isRelativeTimeFormatSupported =
+  typeof Intl !== 'undefined' && Intl.RelativeTimeFormat;
+
 const DATE_UNITS = [
-  ['mes', 2592000],
-  ['semana', 604800],
+  // ['mes', 2592000],
+  // ['semana', 604800],
   ['day', 86400],
   ['hour', 3600],
   ['minute', 60],
@@ -27,13 +30,19 @@ export default function useTimeAgo(timestamp) {
   const [timeago, setTimeago] = useState(() => getDateDiffs(timestamp));
   
   useEffect(() => {
+    if (isRelativeTimeFormatSupported) {
     const interval = setInterval(() => { 
       const newTimeAgo = getDateDiffs(timestamp);
       setTimeago(newTimeAgo);
     }, 10000)
     
-    return () => clearInterval(interval);
+      return () => clearInterval(interval);
+    }
   }, [timestamp]);
+
+  if (!isRelativeTimeFormatSupported) {
+    return formatDate(timestamp);
+  }
 
 
         

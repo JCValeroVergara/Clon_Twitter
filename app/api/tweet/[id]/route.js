@@ -3,7 +3,7 @@ import { firestore } from '../../../firebase/admin';
 
 export async function GET(request, context, response) {
   const id = context.params.id;
-  console.log('id', id);
+  
 
   const tweet = await
   firestore
@@ -15,9 +15,7 @@ export async function GET(request, context, response) {
       const id = doc?.id;
       const createdAt  = data?.createdAt
 
-      console.log('data', data);
-
-      return {
+          return {
         ...data,
         id,
         createdAt: +createdAt?.toDate(),

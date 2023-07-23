@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import styles from './Home.module.css'
 import Devit from '../components/Devit/page';
 import useUser from '../hooks/useUser';
-import { fetchLatestTweets } from '../firebase/client';
+import { listenLatestTweets } from '../firebase/client';
 import Avatar from '../components/Avatar/page';
 import Link from 'next/link';
 import Create from '../components/icons/Create';
@@ -16,9 +16,11 @@ export default function HomePage() {
   const user =useUser()
 
   useEffect(() => {
-    user &&
-    fetchLatestTweets()
-      .then(setTimeline)
+    let unsubscribe
+    if(user){
+      unsubscribe = listenLatestTweets(setTimeline)
+    }
+    return () => unsubscribe && unsubscribe()
   }, [user]);
 
   return (
