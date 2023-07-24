@@ -37,13 +37,22 @@ export const onAuthStateChanged = (onChange) => {
 };
 
 
-  export const loginWithGithub =() =>{
-    const githubProvider = new firebase.auth.GithubAuthProvider();
-    return firebase
-      .auth()
-      .signInWithPopup(githubProvider)
+export const loginWithGithub =() =>{
+  const githubProvider = new firebase.auth.GithubAuthProvider();
+  return firebase
+    .auth()
+    .signInWithPopup(githubProvider)
 };
-      
+
+export const loginWithGoogle = () => {
+  const googleProvider = new firebase.auth.GoogleAuthProvider();
+  return firebase
+    .auth()
+    .signInWithPopup(googleProvider)
+};
+
+
+
 export const addTweet = ({avatar, content,img, userId, userName}) => {
   return db.collection('tweets').add({
     avatar,

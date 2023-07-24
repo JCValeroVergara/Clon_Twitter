@@ -1,8 +1,10 @@
 'use client'
 import { useEffect } from 'react';
 import Button from './components/Button/page';
+import ButtonG from './components/ButtonG/page';
 import Github from './components/icons/Github';
-import  {loginWithGithub}   from './firebase/client';
+import Google from './components/icons/Google';
+import  {loginWithGithub, loginWithGoogle}   from './firebase/client';
 import styles from './page.module.css'
 import { useRouter } from 'next/navigation';
 import useUser,{USER_STATES} from './hooks/useUser';
@@ -22,11 +24,17 @@ export default function Home() {
   
 
 
-const handleClick = () => {
+const handleClickGithub = () => {
   loginWithGithub().catch(err => {
     console.log(err)
   })    
 };
+  
+  const handleClickGoogle = () => {
+    loginWithGoogle().catch((err) => {
+      console.log(err);
+    });
+  };
 
 
   return (
@@ -46,12 +54,21 @@ const handleClick = () => {
             </h2>
             <div>
               {user === USER_STATES.NOT_LOGGED && (
-                <Button onClick={handleClick}>
-                  <div className={styles.button}>
-                    <Github fill="#fff" width={24} height={24} />
-                    <strong> Sign up with Github</strong>
-                  </div>
-                </Button>
+                <div className={styles.btncontainer}>
+                  <Button onClick={handleClickGithub}>
+                    <div className={styles.button}>
+                      <strong>Sign up with Github</strong>
+                      <Github fill="#fff" width={24} height={24} />
+                    </div>
+                  </Button>
+
+                  <ButtonG onClick={handleClickGoogle}>
+                    <div className={styles.button}>
+                      <strong>Sign up with Google</strong>
+                      <Google fill="#fff" width={24} height={24} />
+                    </div>
+                  </ButtonG>
+                </div>
               )}
               {user && USER_STATES.NOT_KNOWN && (
                 <img src="/spinner.gif">Loading...</img>
