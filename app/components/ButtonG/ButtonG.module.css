@@ -14,12 +14,11 @@
     transition: opacity 0.2s ease-in-out;
     display: inline-block;
     margin-bottom: 1rem;
-  }
+}
 
 
 
 .button:hover{
     background-color: #190257;
 }
-
 
