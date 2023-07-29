@@ -100,7 +100,7 @@ export default function ComposeTweet() {
         <title>🐻 Crea un Tweet: / Devter</title>
       </Head>
 
-      <div className={styles.main}>
+      <div>
         <section className={styles.formcontainer}>
           {user && (
             <section className={styles.avatarcontainer}>

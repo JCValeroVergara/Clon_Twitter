@@ -28,16 +28,16 @@ export default function HomePage() {
       <Head>
         <title>Inicio 🐻 / Devter</title>
       </Head>
-      <main className={styles.main}>
+      <main>
         <header className={styles.header}>
           {user && (
             <>
-              <Avatar alt={user.username} src={user.avatar} />
+              <Avatar alt={user.username} src={user.avatar} className={styles.avatar} />
               <img src="/logo.png" alt="Logo" className={styles.logo} />
             </>
           )}
         </header>
-        <section>
+        <section className={styles.section}>
           {timeline.map((devit) => {
             return (
               <Devit

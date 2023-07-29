@@ -1,16 +1,6 @@
-.main {
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  height: 800px;
-  width: 450px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  
-  }
 
-.header{
+
+  .header{
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -23,13 +13,19 @@
   position: sticky;
   top: 0;
   z-index: 1;
+  padding: 10px 15px;
 }
 
 
 .header> img{  
-  margin-right: 200px;
+  margin-right: 190px;
 }
 
+.avatar{
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+}
 
 .logo{
   width: 50px;
@@ -38,11 +34,23 @@
 }
 
 .section{
-  padding: 49px;
+
   display: flex;
   flex-direction: column;
   flex: 1;
   overflow-y: auto;
+  overflow-x: hidden;
+  }
+
+.section::-webkit-scrollbar{
+  width: 7px;
+  background-color: rgb(194, 214, 223); 
+
+}
+
+.section::-webkit-scrollbar-thumb{
+  background-color: #09f;
+  border-radius: 4px;
 }
 
 .article{
@@ -54,13 +62,14 @@
 
 .nav{
   background-color: #fff;
-  
   border-top: 1px solid #eee;
   height: 49px;
   margin-top: auto;
   width: 100%;
   align-items: center;
   justify-content: center;
+  position: sticky;
+  
 }
 
 .nav div{

@@ -44,7 +44,7 @@ export default function DevitPage(props) {
   }, [loading, tweet]);
 
   return (
-    <div className={styles.main}>
+    <div >
       {!loading && tweet && (
         
       <Devit
