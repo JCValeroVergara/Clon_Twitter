@@ -50,3 +50,28 @@
 .time:hover{
   text-decoration: underline;
 }
+
+.interactions{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+  width: 60%;
+  
+}
+
+.buttons{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100px;
+  background: none ;
+  border: none;
+  cursor: pointer;
+}
+
+.buttons:hover{
+  text-decoration: underline;
+}
+
+

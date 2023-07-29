@@ -1,16 +1,4 @@
-.main {
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  height: 90vh;
-  overflow-y: auto;
-  width: 450px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  }
+
 
   .formcontainer {
     align-items: flex-start;

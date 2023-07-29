@@ -26,6 +26,28 @@ return {
   };
 };
 
+export const crearCuentaEmailPassword = async (email, password, name) => {
+  firebase.auth().createUserWithEmailAndPassword(email, password,)
+    .then(result => {
+      result.user.updateProfile({ displayName: name });
+
+      const configuration = {
+        url: 'http://localhost:3000/',
+      };
+
+      result.user.sendEmailVerification(configuration).catch(error => {
+        console.error(error);
+        
+      });
+
+      firebase.auth().signOut();
+      
+    })
+    .catch(error => {
+      console.error(error);
+    });
+};
+
 export const onAuthStateChanged = (onChange) => {
   return firebase
     .auth()
@@ -36,6 +58,13 @@ export const onAuthStateChanged = (onChange) => {
   });
 };
 
+export const loginWithMail = (email,password) => {
+  return firebase.auth().signInWithEmailAndPassword(email, password);
+};
+
+export const logout = () => {
+  return firebase.auth().signOut();
+};
 
 export const loginWithGithub =() =>{
   const githubProvider = new firebase.auth.GithubAuthProvider();
