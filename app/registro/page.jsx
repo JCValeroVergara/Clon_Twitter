@@ -1,8 +1,8 @@
 'use client'
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import styles from './registro.module.css';
-import { crearCuentaEmailPassword } from '../firebase/client';
+import { crearCuentaEmailPassword, uploadImage } from '../firebase/client';
 import Button from '../components/Button/page';
 import { useRouter } from 'next/navigation';
 import EyeOpen from '../components/icons/eyeOpen';
@@ -13,17 +13,30 @@ import EyeClose from '../components/icons/eyeClose';
 export default function Registro() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
+  const [imgURL, setImgURL] = useState(null);
+  const [task, setTask] = useState(null);
   const [errors, setErrors] = useState({
     start: true,
   });
   const router = useRouter();
 
+  const params = new URLSearchParams(window.location.search);
+  const email = params.get('email');
+
   const [form, setForm] = useState({
     name: '',
-    email: '',
+    email: email || '',
     password: '',
     confirmPassword: '',
   });
+
+  useEffect(() => {
+    setForm({
+      ...form,
+      email: email || '',
+    });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [email]);
 
   function validarForm(form) {
     let errors = {};
@@ -79,20 +92,43 @@ export default function Registro() {
 
   const handleRegistro = (event) => {
     event.preventDefault();
-
-    // crearCuentaEmailPassword(name, email, password)
-
-    //   .then((res) => {
-    //     router.push('/home');
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   })
+    crearCuentaEmailPassword({
+      email: form.email,
+      password: form.password,
+      name: form.name,
+      image: imgURL,
+    })
+      .then((res) => {
+        console.log(res);
+        router.push('/authmail');
+      }
+    )
+      .catch((err) => {
+        console.log(err);
+      }
+    );
   };
 
+   useEffect(() => {
+    if (task) {
+      let onProgress = () => {}
+      let onError = (err) => {
+        console.log(err)
+      }
+      let onComplete = () => {
+        console.log('onComplete')
+        task.snapshot.ref.getDownloadURL().then(setImgURL)
+      }
+      task.on('state_changed', onProgress, onError, onComplete)
+    }
+   }, [task]);
+  
   const handleFileChange = (event) => {
-    setSelectedFile(event.target.files[0]);
+    const file = event.target.files[0];
+    const task = uploadImage(file)
+    setTask(task)
   };
+
 
   return (
     <div className={styles.container}>
@@ -102,16 +138,20 @@ export default function Registro() {
         <input
           type="text"
           placeholder="Nombre"
+          name="name"
           className={styles.input}
           onChange={handleChange}
+          value={form.name}
         />{' '}
         <br />
         <span>Ingrese su email</span> <br />
         <input
           type="email"
           placeholder="Email"
+          name="email"
           className={styles.input}
           onChange={handleChange}
+          value={form.email}
         />{' '}
         <br />
         <span>Ingrese su contraseña</span> <br />
@@ -119,8 +159,10 @@ export default function Registro() {
           <input
             type={showPassword ? 'text' : 'password'}
             placeholder="Password"
+            name="password"
             className={styles.input}
             onChange={handleChange}
+            value={form.password}
           />
           <button className={styles.buttonEye} onClick={handleShowPassword}>
             {showPassword ? (
@@ -136,8 +178,10 @@ export default function Registro() {
           <input
             type={showPassword ? 'text' : 'password'}
             placeholder="Corfime su Password"
+            name="confirmPassword"
             className={styles.input}
             onChange={handleChange}
+            value={form.confirmPassword}
           />
           <button className={styles.buttonEye} onClick={handleShowPassword}>
             {showPassword ? (
@@ -149,17 +193,25 @@ export default function Registro() {
           <br />
         </div>
         <span>Imagen</span> <br />
-        <input
+        
+            <label htmlFor="imageInput" className={styles.labelImage}>
+          <strong>Seleccionar imagen</strong>
+            </label>
+          <input
           type="file"
           placeholder="Imagen"
+            name="imageInput"
+            id="imageInput"
           accept="image/*"
           onChange={handleFileChange}
-        />{' '}
+          className={styles.imageInput}
+        />
+        
         <br />
         <div>
-          {selectedFile && (
+          {imgURL && (
             <img
-              src={URL.createObjectURL(selectedFile)}
+              src={imgURL}
               alt="imagen"
               className={styles.imagen}
             />

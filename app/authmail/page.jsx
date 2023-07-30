@@ -1,7 +1,7 @@
 'use client'
 import styles from './automail.module.css';
 import Button from '../components/Button/page';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import EyeOpen from '../components/icons/eyeOpen';
 import EyeClose from '../components/icons/eyeClose';
 import { loginWithMail } from '../firebase/client';
@@ -21,11 +21,12 @@ export default function AuthMail() {
   });
 
   function validarForm(form) {
+    console.log(form);
     let errors = {};
     let regexEmail = /^(\w+[/./-]?){1,}@[a-z]+[/.]\w{2,}$/;
     errors.email = !form.email.trim()
       ? 'El campo "Email" es requerido'
-      : !regexEmail.test(form.email.trim())
+      : !regexEmail.test(form.email)
       ? 'El campo "Email" no es válido'
       : '';
 
@@ -35,7 +36,8 @@ export default function AuthMail() {
       ? 'El campo "Contraseña" debe tener al menos 6 caracteres'
       : form.password.trim().length > 15
       ? 'El campo "Contraseña" debe tener menos de 15 caracteres'
-      : '';
+          : '';
+    return errors;
   }
 
   const handleChange = (event) => {
@@ -58,7 +60,8 @@ export default function AuthMail() {
     const formErrors = validarForm({ email: form.email, password: form.password });
     setErrors(formErrors);
 
-    if (Object.keys(formErrors).length === 0) {
+    console.log(errors);
+    if (!errors.email && !errors.password) {
       loginWithMail(form.email, form.password)
         .then((res) => {
           router.push('/home');
@@ -70,18 +73,13 @@ export default function AuthMail() {
             : err.code === 'auth/wrong-password'
             ? 'Contraseña incorrecta'
             : err.code === 'auth/user-not-found'
-            ? 'Usuario no encontrado'
+            ? 'Usuario no encontrado' && router.push(`/registro?email=${form.email}`)
             : err.code === 'auth/too-many-requests'
             ? 'Demasiados intentos, intente mas tarde'
             : 'Ha ocurrido un error, por favor inténtelo de nuevo';
         });
     }
   };
-    
-
-
-
-
 
   return (
     <form id='authForm' onSubmit={handleLoginWithMail} className={styles.container}>

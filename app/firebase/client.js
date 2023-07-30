@@ -26,16 +26,17 @@ return {
   };
 };
 
-export const crearCuentaEmailPassword = async (email, password, name) => {
-  firebase.auth().createUserWithEmailAndPassword(email, password,)
-    .then(result => {
-      result.user.updateProfile({ displayName: name });
+export const crearCuentaEmailPassword = async ({email, password, name, image}) => {
+  console.log(email, password, name, image)
+  firebase.auth().createUserWithEmailAndPassword(email, password)
+    .then(async result => {
+      await result.user.updateProfile({ displayName: name, photoURL: image });
 
       const configuration = {
         url: 'http://localhost:3000/',
       };
 
-      result.user.sendEmailVerification(configuration).catch(error => {
+      await result.user.sendEmailVerification(configuration).catch(error => {
         console.error(error);
         
       });
